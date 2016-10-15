@@ -3,6 +3,7 @@ a simple dialog object based on jquery, contains basic style
 
 How to use? very simple:
 
+```
 var dialog = new Dialog({
   id: 'my-dialog',
   width: 400,
@@ -18,3 +19,4 @@ $('.btn').on('click',function(){
   </div>';
   dialog.open(content);
 });
+```
