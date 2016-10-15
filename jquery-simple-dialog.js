@@ -21,6 +21,8 @@
 function Dialog(options) {
     this.$dialog = $('<div class="dialog" style="position:fixed;left:0;top:0;z-index:9999;width:100%;height:100%;background:rgba(0,0,0,.8)"><div class="dialog-container" style="position:absolute;top:50%;left:50%;background:#fff;"><a href="javascript:void(0)" class="dialog-close" style="position:absolute;top:2px;right:5px;">&times;</a><div class="dialog-inner" style="margin:10px;"></div></div></div>');
     this.$container = this.$dialog.find('.dialog-container');
+    this.content = null;
+
     this.$dialog.appendTo('body');
     this.$dialog.hide();
 
@@ -34,7 +36,6 @@ function Dialog(options) {
         self.close();
     });
 
-    // 点击背景也可以关闭
     if(options.bgClose) {
         this.$dialog.on('click',function(){
             self.close();
@@ -45,7 +46,10 @@ function Dialog(options) {
     }
 }
 Dialog.prototype.open = function(content) {
-    if(content && content != this.$container.find('.dialog-inner').html()) this.$container.find('.dialog-inner').html(content);
+    if(content && content !== this.content) {
+        this.$container.find('.dialog-inner').html(content);
+        this.content = content;
+    }
     this.$dialog.show();
 
     var width = this.$container.width();
@@ -57,5 +61,6 @@ Dialog.prototype.close = function() {
 }
 Dialog.prototype.destory = function() {
     this.$dialog.hide();
-    this.$container.children().remove();
+    this.$container.find('.dialog-inner').children().remove();
+    this.content = null;
 }
