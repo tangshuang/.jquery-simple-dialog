@@ -19,7 +19,7 @@
  */
 
 function Dialog(options) {
-    this.$dialog = $('<div class="dialog" style="position:fixed;left:0;top:0;z-index:9999;width:100%;height:100%;background:rgba(0,0,0,.8)"><div class="dialog-container" style="position:absolute;top:50%;left:50%;background:#fff;"><a href="javascript:void(0)" class="dialog-close" style="position:absolute;top:2px;right:5px;">&times;</a><div class="dialog-inner" style="margin:20px;"></div></div></div>');
+    this.$dialog = $('<div class="dialog" style="position:fixed;left:0;top:0;z-index:9999;width:100%;height:100%;background:rgba(0,0,0,.8)"><div class="dialog-container" style="position:absolute;top:50%;left:50%;background:#fff;"><a href="javascript:void(0)" class="dialog-close" style="position:absolute;top:2px;right:5px;">&times;</a><div class="dialog-inner" style="margin:20px;overflow:auto;"></div></div></div>');
     this.$container = this.$dialog.find('.dialog-container');
     this.$content = this.$container.find('.dialog-inner');
     this.content = null;
@@ -29,7 +29,10 @@ function Dialog(options) {
 
     if(options.id) this.$dialog.attr('id',options.id);
     if(options.width) this.$container.width(options.width);
-    if(options.height) this.$container.height(options.height);
+    if(options.height) {
+        this.$container.height(options.height);
+        this.$content.height(options.height - 40);
+    }
 
     var self = this;
     this.$dialog.on('click','.dialog-close',function(e){
@@ -47,7 +50,7 @@ function Dialog(options) {
     }
 }
 Dialog.prototype.open = function(content) {
-    if(content && content !== this.content) {
+    if(content && content != this.content) {
         this.$content.html(content);
         this.content = content;
     }
@@ -64,4 +67,13 @@ Dialog.prototype.destory = function() {
     this.$dialog.hide();
     this.$content.children().remove();
     this.content = null;
+}
+Dialog.prototype.resize = function(width,height) {
+    if(width) {
+        this.$container.width(options.width);
+    }
+    if(height) {
+        this.$container.height(options.height);
+        this.$content.height(options.height - 40);
+    }
 }
