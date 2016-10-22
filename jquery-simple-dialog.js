@@ -19,7 +19,7 @@
  */
 
 function Dialog(options) {
-    this.$dialog = $('<div class="dialog" style="position:fixed;left:0;top:0;z-index:9999;width:100%;height:100%;background:rgba(0,0,0,.8)"><div class="dialog-container" style="position:absolute;top:50%;left:50%;background:#fff;"><a href="javascript:void(0)" class="dialog-close" style="position:absolute;top:2px;right:5px;">&times;</a><div class="dialog-inner" style="margin:20px;overflow:auto;"></div></div></div>');
+    this.$dialog = $('<div class="dialog" style="position:fixed;left:0;top:0;z-index:9999;width:100%;height:100%;"><div class="dialog-bg" style="position:absolute;top:0;left:0;width:100%;height:100%;background:#000;opacity:.7"></div><div class="dialog-container" style="position:absolute;top:50%;left:50%;background:#fff;"><a href="javascript:void(0)" class="dialog-close" style="position:absolute;top:2px;right:5px;">&times;</a><div class="dialog-inner" style="margin:20px;overflow:auto;"></div></div></div>');
     this.$container = this.$dialog.find('.dialog-container');
     this.$content = this.$container.find('.dialog-inner');
     this.content = null;
@@ -41,11 +41,8 @@ function Dialog(options) {
     });
 
     if(options.bgClose) {
-        this.$dialog.on('click',function(){
+        this.$dialog.on('click','.dialog-bg',function(){
             self.close();
-        });
-        this.$dialog.on('click','.dialog-container',function(e){
-            e.stopPropagation();
         });
     }
 }
@@ -76,4 +73,6 @@ Dialog.prototype.resize = function(width,height) {
         this.$container.height(options.height);
         this.$content.height(options.height - 40);
     }
+
+    this.$container.css({marginLeft:-width/2,marginTop:-height/2});
 }
