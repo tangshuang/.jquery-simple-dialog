@@ -19,7 +19,7 @@
  */
 
 function Dialog(options) {
-    this.$dialog = $('<div class="dialog" style="position:fixed;left:0;top:0;z-index:9999;width:100%;height:100%;"><div class="dialog-bg" style="position:absolute;top:0;left:0;width:100%;height:100%;background:#000;opacity:.7"></div><div class="dialog-container" style="position:absolute;top:50%;left:50%;background:#fff;"><a href="javascript:void(0)" class="dialog-close" style="position:absolute;top:2px;right:5px;">&times;</a><div class="dialog-inner" style="margin:20px;overflow:auto;"></div></div></div>');
+    this.$dialog = $('<div class="dialog" style="position:fixed;left:0;top:0;z-index:9999;width:100%;height:100%;"><div class="dialog-bg" style="position:absolute;top:0;left:0;width:100%;height:100%;background:#000;opacity:.6"></div><div class="dialog-container" style="position:absolute;top:50%;left:50%;background:#fff;"><a href="javascript:void(0)" class="dialog-close" style="position:absolute;top:2px;right:5px;text-decoration: none;">&times;</a><div class="dialog-inner" style="margin:20px;overflow:auto;"></div></div></div>');
     this.$container = this.$dialog.find('.dialog-container');
     this.$content = this.$container.find('.dialog-inner');
     this.content = null;
@@ -27,27 +27,27 @@ function Dialog(options) {
     this.$dialog.appendTo('body');
     this.$dialog.hide();
 
-    if(options.id) this.$dialog.attr('id',options.id);
-    if(options.width) this.$container.width(options.width);
-    if(options.height) {
+    if (options.id) this.$dialog.attr('id', options.id);
+    if (options.width) this.$container.width(options.width);
+    if (options.height) {
         this.$container.height(options.height);
         this.$content.height(options.height - 40);
     }
 
     var self = this;
-    this.$dialog.on('click','.dialog-close',function(e){
+    this.$dialog.on('click', '.dialog-close', function(e) {
         e.preventDefault();
         self.close();
     });
 
-    if(options.bgClose) {
-        this.$dialog.on('click','.dialog-bg',function(){
+    if (options.bgClose) {
+        this.$dialog.on('click', '.dialog-bg', function() {
             self.close();
         });
     }
 }
 Dialog.prototype.open = function(content) {
-    if(content && content != this.content) {
+    if (content && content != this.content) {
         this.$content.html(content);
         this.content = content;
     }
@@ -55,7 +55,7 @@ Dialog.prototype.open = function(content) {
 
     var width = this.$container.width();
     var height = this.$container.height();
-    this.$container.css({marginLeft:-width/2,marginTop:-height/2});
+    this.$container.css({ marginLeft: -width / 2, marginTop: -height / 2 });
 }
 Dialog.prototype.close = function() {
     this.$dialog.hide();
@@ -65,14 +65,14 @@ Dialog.prototype.destory = function() {
     this.$content.children().remove();
     this.content = null;
 }
-Dialog.prototype.resize = function(width,height) {
-    if(width) {
+Dialog.prototype.resize = function(width, height) {
+    if (width) {
         this.$container.width(options.width);
     }
-    if(height) {
+    if (height) {
         this.$container.height(options.height);
         this.$content.height(options.height - 40);
     }
 
-    this.$container.css({marginLeft:-width/2,marginTop:-height/2});
+    this.$container.css({ marginLeft: -width / 2, marginTop: -height / 2 });
 }
