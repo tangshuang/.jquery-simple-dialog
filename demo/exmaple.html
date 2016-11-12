@@ -7,17 +7,55 @@
 </head>
 
 <body>
-    <a href="javascript:" id="open">open a dialog</a>
+    <p><a href="javascript:" id="open1">1. with title</a></p>
+    <p><a href="javascript:" id="open2">2. without title</a></p>
+    <p><a href="javascript:" id="open3">2. 600x400</a></p>
+
     <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="../jquery-simple-dialog.js"></script>
     <script type="text/javascript">
-    var $dialog = new Dialog({
+    var html = '<p>网页标准有 W3C 控制，尤其是浏览器的开发，所有主流的浏览器都会自觉符合这个组织的标准，当然这些开发商本身就是这个组织的成员。所以新的 HTML5，CSS3，ES6 JavaScript 的新特性的得到顺利推动，让大部分主流浏览器都支持它，W3C 功不可没。</p>';
+    html += '<p>模块化的发展，大大加快了开发的速度。很多人也愿意开发各种框架和模块，不但可以锻炼自己的开发技能，也是一种展示自己的能力。</p>';
+    var title = '十年来，编程领域有什么重要进展？';
+
+    var options1 = {
         id: 'dialog-1',
         bgClose: true
+    };
+    var dialog1 = new Dialog(options1);
+
+    var options2 = {
+        id: 'dialog-2',
+        bgClose: true
+    };
+    var dialog2 = new Dialog(options2);
+
+    var options3 = {
+        id: 'dialog-3',
+        bgClose: true,
+        width: 600,
+        height: 400
+    };
+    var dialog3 = new Dialog(options3);
+
+    $('#open1').on('click', function() {
+        dialog1.open(html,title);
     });
-    $('#open').on('click', function() {
-        $dialog.open('这里可以写HTML代码');
+    $('#open2').on('click', function() {
+        dialog2.open(html);
     });
+
+    $('#open3').on('click', function() {
+        var resizetext = '<p><a href="javascript:void(0)" id="resize">改变大小</a> <a href="javascript:void(0)" id="resetsize">重置大小</a></p>';
+        dialog3.open(html + resizetext,title);
+    });
+    dialog3.$dialog.on('click','#resize',function(){
+        dialog3.resize(400,300);
+    });
+    dialog3.$dialog.on('click','#resetsize',function(){
+        dialog3.resize();
+    });
+    
     </script>
 </body>
 
